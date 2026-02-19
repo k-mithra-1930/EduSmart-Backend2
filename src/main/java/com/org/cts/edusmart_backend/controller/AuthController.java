@@ -42,6 +42,7 @@ public class AuthController {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+   //     user.setId(dto.getId());
         user.setRole(dto.getRole().toUpperCase());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
@@ -76,6 +77,7 @@ public class AuthController {
 
                     // 4. Return user details and token
                     Map<String, Object> response = new HashMap<>();
+                   // response.put("ID",user.getId());
                     response.put("token", token);
                     response.put("role", user.getRole().toUpperCase());
                     response.put("name", user.getName());

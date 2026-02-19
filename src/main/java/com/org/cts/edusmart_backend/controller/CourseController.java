@@ -4,6 +4,7 @@ package com.org.cts.edusmart_backend.controller;
 
 import com.org.cts.edusmart_backend.dto.CourseDTO;
 import com.org.cts.edusmart_backend.entity.Course;
+import com.org.cts.edusmart_backend.entity.CourseStatus;
 import com.org.cts.edusmart_backend.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,13 +38,20 @@ public class CourseController {
 
 
 
-   @PutMapping("/update/{id}")
-    public Course updateCourse(@RequestBody CourseDTO dto,Long id) {
-       return courseService.update(dto,id);
+   @PutMapping("/update/{id}/{status}")
+    public Course updateCourse(@RequestParam Long id,@RequestParam CourseStatus status) {
+       return courseService.update(status,id);
    }
 
    @DeleteMapping("/{id}")
     public void delete(Long id){
        courseService.delete(id);
    }
+
+   @GetMapping("/{status}")
+    public ResponseEntity<List<Course>> getCourseByStatus(@PathVariable CourseStatus status) {
+       List<Course> courses = courseService.getcoursebystatus(status);
+       return ResponseEntity.ok(courses);
+   }
+
 }

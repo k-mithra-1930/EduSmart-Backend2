@@ -31,11 +31,9 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course update(CourseDTO dto,Long id) {
+    public Course update(CourseStatus status,Long id) {
         return courseRepository.findById(id).map(existing -> {
-            existing.setName(dto.getName());
-            existing.setDescription(dto.getDescription());
-            existing.setStatus(dto.getStatus());
+            existing.setStatus(status);
             return courseRepository.save(existing);
                 })
                 .orElseThrow(() -> new RuntimeException("Course with ID "+id+" not found."));
@@ -45,6 +43,11 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public void delete(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Course> getcoursebystatus(CourseStatus status) {
+        return courseRepository.findByStatus(status);
     }
 
 

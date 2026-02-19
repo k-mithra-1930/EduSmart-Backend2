@@ -38,6 +38,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Allow pre-flight OPTIONS requests for all endpoints
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                // --- LINES FOR SWAGGER ---
+                                .requestMatchers("/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html",
+                                        "/swagger-resources/**",
+                                        "/webjars/**").permitAll()
+// ----------------------------------
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/seed").permitAll()
                         .anyRequest().authenticated()
