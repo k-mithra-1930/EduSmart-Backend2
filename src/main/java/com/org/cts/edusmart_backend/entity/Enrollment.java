@@ -15,8 +15,12 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate enrolledDate;
+
+    @Enumerated(EnumType.STRING)
+    private EnrollmentStatus status;
+
     @ManyToOne
-    private Student student;
+    private User student;
     @ManyToOne
     private Course course;
 }

@@ -20,5 +20,8 @@ public class Course {
     @Column(nullable = false)
     private CourseStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "instructor_id")
+    private User instructor;
 
 }
