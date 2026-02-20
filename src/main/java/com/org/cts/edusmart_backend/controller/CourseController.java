@@ -39,19 +39,24 @@ public class CourseController {
 
 
    @PutMapping("/update/{id}/{status}")
-    public Course updateCourse(@RequestParam Long id,@RequestParam CourseStatus status) {
+    public Course updateCourse(@PathVariable Long id,@PathVariable CourseStatus status) {
        return courseService.update(status,id);
    }
 
    @DeleteMapping("/{id}")
-    public void delete(Long id){
+    public void delete(@PathVariable Long id){
        courseService.delete(id);
    }
 
    @GetMapping("/{status}")
-    public ResponseEntity<List<Course>> getCourseByStatus(@PathVariable CourseStatus status) {
-       List<Course> courses = courseService.getcoursebystatus(status);
-       return ResponseEntity.ok(courses);
+    public ResponseEntity<List<Course>> getCourseByStatus(@PathVariable String status) {
+       try {
+           CourseStatus courseStatus = CourseStatus.fromString(status);
+           List<Course> courses = courseService.getcoursebystatus(courseStatus);
+           return ResponseEntity.ok(courses);
+       }catch (IllegalArgumentException e) {
+           return ResponseEntity.badRequest().body(List.of());
+       }
    }
 
 }
