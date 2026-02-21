@@ -54,4 +54,12 @@ public class QuizService {
     public List<Quiz> getQuizzesByCourse(Long courseId) {
         return quizRepository.findByCourseId(courseId);
     }
+
+    public void deleteQuiz(Long quizId) {
+        if (!quizRepository.existsById(quizId)) {
+            throw new RuntimeException("Quiz not found with ID: " + quizId);
+        }
+        quizRepository.deleteById(quizId);
+    }
+
 }

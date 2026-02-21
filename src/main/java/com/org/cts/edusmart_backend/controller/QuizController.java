@@ -29,4 +29,15 @@ public class QuizController {
     public ResponseEntity<List<Quiz>> getQuizzes(@PathVariable Long courseId) {
         return ResponseEntity.ok(quizService.getQuizzesByCourse(courseId));
     }
+
+    @DeleteMapping("/course/{courseId}/delete/{quizId}")
+    public ResponseEntity<?> deleteQuiz(@PathVariable Long courseId, @PathVariable Long quizId) {
+        try {
+            quizService.deleteQuiz(quizId);
+            return ResponseEntity.ok("Quiz and all its questions deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

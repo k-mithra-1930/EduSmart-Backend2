@@ -28,4 +28,14 @@ public class AssignmentController {
     public ResponseEntity<List<Assignment>> getAssignmentsByCourse(@PathVariable Long courseId) {
         return ResponseEntity.ok(assignmentService.getAssignmentsByCourseId(courseId));
     }
+
+    @DeleteMapping("/course/{courseId}/delete/{assignmentId}")
+    public ResponseEntity<?> deleteAssignment(@PathVariable Long courseId, @PathVariable Long assignmentId) {
+        try {
+            assignmentService.deleteAssignment(assignmentId);
+            return ResponseEntity.ok("Assignment deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
