@@ -51,4 +51,11 @@ public class AssignmentService {
         return assignmentRepository.findByCourseId(courseId);
     }
 
+    public void deleteAssignment(Long assignmentId) {
+        if (!assignmentRepository.existsById(assignmentId)) {
+            throw new RuntimeException("Assignment not found with ID: " + assignmentId);
+        }
+        assignmentRepository.deleteById(assignmentId);
+    }
+
 }
