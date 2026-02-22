@@ -16,9 +16,6 @@ public class Enrollment {
     private Long id;
     private LocalDate enrolledDate;
 
-    @Enumerated(EnumType.STRING)
-    private EnrollmentStatus status;
-
     @ManyToOne
     private User student;
     @ManyToOne

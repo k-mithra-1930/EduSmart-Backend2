@@ -23,12 +23,4 @@ public class EnrollmentController {
         }
     }
 
-    @PutMapping("/status/{id}")
-    public ResponseEntity<?> processRequest(@PathVariable Long id, @RequestParam EnrollmentStatus status) {
-        try {
-            return ResponseEntity.ok(enrollmentService.updateStatus(id, status));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
 }
