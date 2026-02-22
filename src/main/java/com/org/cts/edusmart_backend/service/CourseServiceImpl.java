@@ -59,4 +59,13 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getcoursebystatus(CourseStatus status) {
         return courseRepository.findByStatus(status);
     }
+
+    @Override
+    public List<Course> getCoursesNotEnrolledByStudent(Long studentId) {
+        // We check if the user exists first to provide better error handling
+        if (!userRepository.existsById(studentId)) {
+            throw new RuntimeException("Student not found with ID: " + studentId);
+        }
+        return courseRepository.findCoursesNotEnrolledByStudent(studentId);
+    }
 }

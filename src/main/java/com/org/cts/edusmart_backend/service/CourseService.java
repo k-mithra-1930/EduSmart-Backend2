@@ -16,5 +16,6 @@ public interface CourseService {
     public Course update(CourseStatus status,Long id);
     public void delete(Long id);
     public List<Course> getcoursebystatus(CourseStatus status);
+    public List<Course> getCoursesNotEnrolledByStudent(Long studentId);
 
 }

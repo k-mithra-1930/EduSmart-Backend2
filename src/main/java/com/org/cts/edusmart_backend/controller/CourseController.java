@@ -59,4 +59,14 @@ public class CourseController {
        }
    }
 
+    @GetMapping("/not-enrolled/{studentId}")
+    public ResponseEntity<List<Course>> getAvailableCourses(@PathVariable Long studentId) {
+        try {
+            List<Course> courses = courseService.getCoursesNotEnrolledByStudent(studentId);
+            return ResponseEntity.ok(courses);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 }

@@ -33,7 +33,6 @@ public class EnrollmentService {
         enrollment.setStudent(student);
         enrollment.setCourse(course);
         enrollment.setEnrolledDate(LocalDate.now());
-        enrollment.setStatus(EnrollmentStatus.PENDING);
 
         return enrollmentRepository.save(enrollment);
     }

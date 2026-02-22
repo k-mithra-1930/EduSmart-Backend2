@@ -1,7 +1,6 @@
 package com.org.cts.edusmart_backend.repository;
 
 import com.org.cts.edusmart_backend.entity.Enrollment;
-import com.org.cts.edusmart_backend.entity.EnrollmentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
