@@ -1,7 +1,10 @@
 package com.org.cts.edusmart_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "courses")
@@ -22,6 +25,11 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
+    @JsonIgnore
     private User instructor;
+
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+    private List<Content> contents;
 
 }

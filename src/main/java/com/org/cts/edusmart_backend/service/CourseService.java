@@ -10,8 +10,9 @@ import java.util.List;
 
 
 public interface CourseService {
-    public List<Course> getAll();
 
+
+    public List<Course> getAll();
     public Course save(CourseDTO course);
     public Course update(CourseStatus status,Long id);
     public void delete(Long id);
