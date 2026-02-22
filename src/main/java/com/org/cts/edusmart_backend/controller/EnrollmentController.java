@@ -7,12 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/enrollments")
 public class EnrollmentController {
 
     @Autowired
     private EnrollmentService enrollmentService;
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<Course>> getStudentCourses(@PathVariable Long studentId) {
+        try {
+            List<Course> courses = enrollmentService.getCoursesByStudentId(studentId);
+            return ResponseEntity.ok(courses);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 
     @PostMapping("/request")
     public ResponseEntity<?> requestEnrollment(@RequestBody EnrollmentRequestDTO dto) {

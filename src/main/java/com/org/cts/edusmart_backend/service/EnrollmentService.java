@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EnrollmentService {
@@ -46,6 +47,13 @@ public class EnrollmentService {
                 .orElseThrow(() -> new RuntimeException("Enrollment not found"));
         enrollment.setStatus(status);
         return enrollmentRepository.save(enrollment);
+    }
+
+    public List<Course> getCoursesByStudentId(Long studentId) {
+        List<Enrollment> enrollments = enrollmentRepository.findByStudentId(studentId);
+        return enrollments.stream()
+                .map(Enrollment::getCourse)
+                .collect(Collectors.toList());
     }
 
 }
