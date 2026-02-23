@@ -37,16 +37,9 @@ public class EnrollmentService {
         return enrollmentRepository.save(enrollment);
     }
 
-    public List<Enrollment> getInstructorPendingRequests(String instructorEmail) {
-        return enrollmentRepository.findByCourse_Instructor_EmailAndStatus(instructorEmail, EnrollmentStatus.PENDING);
-    }
 
-    public Enrollment updateStatus(Long enrollmentId, EnrollmentStatus status) {
-        Enrollment enrollment = enrollmentRepository.findById(enrollmentId)
-                .orElseThrow(() -> new RuntimeException("Enrollment not found"));
-        enrollment.setStatus(status);
-        return enrollmentRepository.save(enrollment);
-    }
+
+
 
     public List<Course> getCoursesByStudentId(Long studentId) {
         List<Enrollment> enrollments = enrollmentRepository.findByStudentId(studentId);

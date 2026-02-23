@@ -5,6 +5,7 @@ package com.org.cts.edusmart_backend.controller;
 import com.org.cts.edusmart_backend.dto.CourseDTO;
 import com.org.cts.edusmart_backend.entity.Course;
 import com.org.cts.edusmart_backend.entity.CourseStatus;
+import com.org.cts.edusmart_backend.repository.CourseRepository;
 import com.org.cts.edusmart_backend.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,19 @@ public class CourseController {
    @Autowired
     private CourseService courseService;
 
+   @Autowired
+   private CourseRepository courseRepository;
+
    @GetMapping()
     public List<Course> Getcourses() {
        return courseService.getAll();
+   }
+
+   @GetMapping("/course/{courseId}")
+   public ResponseEntity<Course> getCourseById(@PathVariable Long courseId) {
+       return ResponseEntity.ok(courseRepository.findById(courseId).orElseThrow(
+                () -> new RuntimeException("Course not found with ID: " + courseId)
+       ));
    }
 
    @PostMapping("/add")
