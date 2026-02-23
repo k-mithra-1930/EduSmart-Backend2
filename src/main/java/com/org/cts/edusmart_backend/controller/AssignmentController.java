@@ -4,6 +4,7 @@ import com.org.cts.edusmart_backend.dto.AssignmentDTO;
 import com.org.cts.edusmart_backend.entity.Assignment;
 import com.org.cts.edusmart_backend.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -33,9 +34,19 @@ public class AssignmentController {
     public ResponseEntity<?> deleteAssignment(@PathVariable Long courseId, @PathVariable Long assignmentId) {
         try {
             assignmentService.deleteAssignment(assignmentId);
-            return ResponseEntity.ok("Assignment deleted successfully");
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/{assignmentId}")
+    public ResponseEntity<?> getAssignmentQuestions(@PathVariable Long assignmentId) {
+        try {
+            return ResponseEntity.ok(assignmentService.getById(assignmentId));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }
