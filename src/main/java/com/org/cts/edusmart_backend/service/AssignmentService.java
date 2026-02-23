@@ -57,5 +57,11 @@ public class AssignmentService {
         }
         assignmentRepository.deleteById(assignmentId);
     }
+    public Assignment getById(Long assignmentId) {
+        Assignment assignment = assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new RuntimeException("Assignment not found with ID: " + assignmentId));
+
+        return assignment;
+    }
 
 }
