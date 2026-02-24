@@ -62,4 +62,8 @@ public class QuizService {
         quizRepository.deleteById(quizId);
     }
 
+    public List<Quiz> getUnsolvedQuizzes(Long courseId,Long studentId) {
+        return quizRepository.findUnsolvedQuizzesByCourse(courseId,studentId);
+    }
+
 }
