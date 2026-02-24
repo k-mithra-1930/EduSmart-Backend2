@@ -17,6 +17,15 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
+    @GetMapping("/course/{courseId}/unsolved")
+    public ResponseEntity<List<Quiz>> getUnsolvedQuizzes(
+            @PathVariable Long courseId,
+            @RequestParam Long studentId
+    ) {
+        List<Quiz> unsolvedQuizzes = quizService.getUnsolvedQuizzes(courseId,studentId);
+        return ResponseEntity.ok(unsolvedQuizzes);
+    }
+
     @PostMapping("/course/{courseId}")
     public ResponseEntity<?> createQuiz(@PathVariable Long courseId, @RequestBody QuizDTO quizDto) {
         try {
