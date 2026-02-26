@@ -49,4 +49,18 @@ public class AssignmentController {
         }
     }
 
+    @GetMapping("/unsolved")
+    public ResponseEntity<List<Assignment>> getUnsolvedAssignments(
+            @RequestParam Long courseId,
+            @RequestParam Long studentId
+    ) {
+        List<Assignment> unsolved = assignmentService.getUnsolvedAssignments(courseId,studentId);
+
+        if(unsolved.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(unsolved);
+    }
+
 }

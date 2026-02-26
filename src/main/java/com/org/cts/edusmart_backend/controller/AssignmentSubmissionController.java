@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.controller;
 
+import com.org.cts.edusmart_backend.dto.AssignmentScoreDTO;
 import com.org.cts.edusmart_backend.dto.SubmissionDTO;
 import com.org.cts.edusmart_backend.entity.AssignmentSubmission;
 import com.org.cts.edusmart_backend.service.AssignmentSubmissionService;
@@ -25,5 +26,10 @@ public class AssignmentSubmissionController {
     @GetMapping("/{assignmentId}")
     public ResponseEntity<List<AssignmentSubmission>> getSubmissionsByAssignment(@PathVariable Long assignmentId) {
         return ResponseEntity.ok(service.getSubmissionsByAssignmentId(assignmentId));
+    }
+
+    @PutMapping("/give_score")
+    public ResponseEntity<?> giveScoretoAssignment(@RequestBody AssignmentScoreDTO dto) {
+        return ResponseEntity.ok(service.giveScoretoSubmission(dto));
     }
 }

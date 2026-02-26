@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.service;
 
+import com.org.cts.edusmart_backend.dto.AssignmentScoreDTO;
 import com.org.cts.edusmart_backend.dto.SubmissionDTO;
 import com.org.cts.edusmart_backend.entity.AssignmentSubmission;
 import com.org.cts.edusmart_backend.entity.QuestionAnswerPair;
@@ -38,6 +39,12 @@ public class AssignmentSubmissionService {
 
     public List<AssignmentSubmission> getAllSubmissions() {
         return repository.findAll();
+    }
+
+    public AssignmentSubmission giveScoretoSubmission(AssignmentScoreDTO dto) {
+        AssignmentSubmission submission= repository.findById(dto.getAssignmentSubId()).orElseThrow(() -> new RuntimeException("Assignment Submission ID not found"));
+        submission.setScore(dto.getScore());
+        return repository.save(submission);
     }
 
     public List<AssignmentSubmission> getSubmissionsByAssignmentId(Long assignmentId) {
