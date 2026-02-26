@@ -8,6 +8,7 @@ import com.org.cts.edusmart_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +17,10 @@ public class QuizSubmissionService {
     @Autowired private QuizSubmissionRepository submissionRepository;
     @Autowired private UserRepository userRepository;
     @Autowired private QuizRepository quizRepository;
+
+    public List<QuizSubmission> getSubmissionsByStudent(Long quizId) {
+        return submissionRepository.findByQuizId(quizId);
+    }
 
     public QuizSubmissionResponseDTO submitQuiz(QuizSubmissionDTO dto) {
         User student = userRepository.findById(dto.getStudentId())
