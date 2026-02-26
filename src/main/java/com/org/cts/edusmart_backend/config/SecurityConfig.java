@@ -46,7 +46,6 @@ public class SecurityConfig {
                                         "/webjars/**").permitAll()
 // ----------------------------------
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/admin/seed").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

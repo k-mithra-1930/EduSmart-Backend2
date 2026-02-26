@@ -64,4 +64,8 @@ public class AssignmentService {
         return assignment;
     }
 
+    public List<Assignment> getUnsolvedAssignments(Long courseId,Long studentId) {
+        return assignmentRepository.findUnsolvedAssignments(courseId,studentId);
+    }
+
 }

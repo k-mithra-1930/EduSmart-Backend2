@@ -21,6 +21,9 @@ public class AssignmentSubmission {
     private LocalDate submittedDate;
     private Long studentId;
 
+    @Column(nullable = true)
+    private Integer score;
+
     @ElementCollection
     @CollectionTable(name = "submission_answers", joinColumns = @JoinColumn(name = "submission_id"))
     private List<QuestionAnswerPair> questionsAnswerPair;
