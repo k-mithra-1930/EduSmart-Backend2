@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.repository;
 
+import com.org.cts.edusmart_backend.entity.Course;
 import com.org.cts.edusmart_backend.entity.Quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,8 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     "AND NOT EXISTS (SELECT s FROM QuizSubmission s "+
     "WHERE s.quiz = q AND s.student.id = :studentId)")
     List<Quiz> findUnsolvedQuizzesByCourse(Long courseId, Long studentId);
+
+    long countByCourseId(Long courseId);
+
+    long countByCourse(Course course);
 }

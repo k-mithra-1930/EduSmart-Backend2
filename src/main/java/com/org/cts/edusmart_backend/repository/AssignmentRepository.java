@@ -1,6 +1,7 @@
 package com.org.cts.edusmart_backend.repository;
 
 import com.org.cts.edusmart_backend.entity.Assignment;
+import com.org.cts.edusmart_backend.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,8 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     "WHERE s.assignmentId = a.id AND s.studentId = :studentId)")
     List<Assignment> findUnsolvedAssignments(@Param("courseId") Long courseId,
                                              @Param("studentId") Long studentId);
+
+    long countByCourseId(Long courseId);
+
+    long countByCourse(Course course);
 }
