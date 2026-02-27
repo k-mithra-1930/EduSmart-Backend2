@@ -82,6 +82,7 @@ public class AuthController {
                     response.put("role", user.getRole().toUpperCase());
                     response.put("name", user.getName());
                     response.put("email", user.getEmail());
+                    response.put("id", user.getId());
 
                     return ResponseEntity.ok(response);
                 })
