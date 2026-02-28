@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -22,5 +23,6 @@ public class SubmittedAnswer {
 
     @ManyToOne
     @JoinColumn(name = "submission_id")
+    @JsonIgnore
     private QuizSubmission submission;
 }

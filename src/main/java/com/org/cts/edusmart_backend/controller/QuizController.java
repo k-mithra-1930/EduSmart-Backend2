@@ -50,5 +50,9 @@ public class QuizController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<Quiz>> getAllQuizzes() {
+        return ResponseEntity.ok(quizService.getAllQuizzes());
+    }
 
 }
