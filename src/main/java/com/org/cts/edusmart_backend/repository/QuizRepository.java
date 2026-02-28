@@ -18,4 +18,6 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     long countByCourseId(Long courseId);
 
     long countByCourse(Course course);
+
+    long count();
 }

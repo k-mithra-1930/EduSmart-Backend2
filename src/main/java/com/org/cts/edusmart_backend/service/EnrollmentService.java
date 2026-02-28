@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +41,26 @@ public class EnrollmentService {
 
         return enrollmentRepository.save(enrollment);
     }
+
+
+    public List<User> getUniqueStudentsByCourseId(Long courseId) {
+        List<Enrollment> enrollments = enrollmentRepository.findByCourseId(courseId);
+
+        return enrollments.stream()
+                .map(Enrollment::getStudent)
+                .filter(user -> "STUDENT".equalsIgnoreCase(user.getRole()))
+                // Filter to ensure unique students by ID just in case of data inconsistency
+                .filter(distinctByKey(User::getId))
+                .collect(Collectors.toList());
+    }
+
+    // Helper method to filter duplicates by a specific property
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+
 
 
     public List<Course> getCoursesByStudentId(Long studentId) {
