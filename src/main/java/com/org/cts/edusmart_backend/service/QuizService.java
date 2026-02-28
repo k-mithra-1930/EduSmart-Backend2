@@ -22,6 +22,10 @@ public class QuizService {
     @Autowired
     private CourseRepository courseRepository;
 
+    public List<Quiz> getAllQuizzes() {
+        return quizRepository.findAll();
+    }
+
     public Quiz addQuizToCourse(Long courseId, QuizDTO quizDto) {
         // 1. Find the course or throw an error
         Course course = courseRepository.findById(courseId)

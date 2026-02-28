@@ -1,6 +1,7 @@
 package com.org.cts.edusmart_backend.service;
 
 import com.org.cts.edusmart_backend.dto.EnrollmentRequestDTO;
+import com.org.cts.edusmart_backend.dto.EnrollmentResponseDTO;
 import com.org.cts.edusmart_backend.entity.*;
 import com.org.cts.edusmart_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,19 @@ public class EnrollmentService {
         return enrollments.stream()
                 .map(Enrollment::getCourse)
                 .collect(Collectors.toList());
+    }
+
+    public List<EnrollmentResponseDTO> getAllEnrollments() {
+        List<Enrollment> enrollments = enrollmentRepository.findAll();
+
+        return enrollments.stream().map(enrollment -> new EnrollmentResponseDTO(
+                enrollment.getId(),
+                enrollment.getStudent().getId(),
+                enrollment.getStudent().getName(),
+                enrollment.getCourse().getName(),
+                enrollment.getEnrolledDate(),
+                "Active" // Defaulting to Active as per your UI screenshot
+        )).collect(Collectors.toList());
     }
 
 }

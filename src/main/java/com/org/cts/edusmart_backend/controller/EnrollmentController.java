@@ -1,6 +1,7 @@
 package com.org.cts.edusmart_backend.controller;
 
 import com.org.cts.edusmart_backend.dto.EnrollmentRequestDTO;
+import com.org.cts.edusmart_backend.dto.EnrollmentResponseDTO;
 import com.org.cts.edusmart_backend.entity.*;
 import com.org.cts.edusmart_backend.service.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class EnrollmentController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<EnrollmentResponseDTO>> getAllEnrollments() {
+        return ResponseEntity.ok(enrollmentService.getAllEnrollments());
     }
 
 }
