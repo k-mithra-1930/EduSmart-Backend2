@@ -26,4 +26,13 @@ public class ReportController {
         }
         return ResponseEntity.ok(reports);
     }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<?> getDashboardData() {
+        try {
+            return ResponseEntity.ok(reportService.getDashboardData());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
