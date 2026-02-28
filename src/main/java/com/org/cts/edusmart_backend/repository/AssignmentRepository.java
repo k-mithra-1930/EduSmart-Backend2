@@ -20,4 +20,6 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     long countByCourseId(Long courseId);
 
     long countByCourse(Course course);
+
+    long count();
 }
