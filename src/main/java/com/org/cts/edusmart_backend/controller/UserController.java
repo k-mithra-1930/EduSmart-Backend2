@@ -28,4 +28,19 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/instructor/{instructorId}")
+    public ResponseEntity<StudentResponseDTO> getInstructorById(@PathVariable Long instructorId) {
+        return userRepository.findById(instructorId)
+                // Ensure the user found actually has the INSTRUCTOR role
+                .filter(user -> "INSTRUCTOR".equalsIgnoreCase(user.getRole()))
+                .map(user -> new StudentResponseDTO(
+                        user.getId(),
+                        user.getName(),
+                        user.getEmail()
+                ))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
 }
