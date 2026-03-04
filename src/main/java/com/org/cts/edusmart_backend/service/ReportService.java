@@ -67,7 +67,7 @@ public class ReportService {
             List<AssignmentSubmission> assignSubs = assignmentSubmissionRepository.findByStudentIdAndCourseId(student.getId(),course.getId());
 
             long completedItems = quizSubs.size() + assignSubs.size();
-            double progress = (totalItems > 0) ? ((double) completedItems / totalItems) * 100 : 0;
+            double progress = (totalItems > 0) ? Math.min(((double) completedItems / totalItems) * 100,100) : 0;
 
             double avgQuizScore = quizSubs.stream()
                     .mapToInt(QuizSubmission::getScore)
