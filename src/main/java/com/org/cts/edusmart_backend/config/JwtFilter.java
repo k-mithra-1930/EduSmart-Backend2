@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.config;
 
+import com.org.cts.edusmart_backend.Security.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -7,6 +8,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final String SECRET_KEY = "KundanMithraSaurabhSaiPranayaAyeshaVivek";
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -48,7 +53,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         .parseClaimsJws(token)
                         .getBody();
 
-                String email = claims.getSubject();
+                String email = jwtUtils.getEmailFromToken(token);
                 String role = claims.get("role", String.class); // Get role for future permission checks
 
                 if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {

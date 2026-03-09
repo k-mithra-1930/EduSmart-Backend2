@@ -31,12 +31,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter jwtAuthFilter) throws Exception {
         http
-                // 1. THIS IS THE MISSING PIECE: Enable CORS support in Security
+
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Allow pre-flight OPTIONS requests for all endpoints
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 // --- LINES FOR SWAGGER ---
                                 .requestMatchers("/v3/api-docs/**",
@@ -44,7 +43,6 @@ public class SecurityConfig {
                                         "/swagger-ui.html",
                                         "/swagger-resources/**",
                                         "/webjars/**").permitAll()
-// ----------------------------------
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
