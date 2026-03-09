@@ -33,8 +33,6 @@ public class AttendanceController {
         }
     }
 
-    // src/main/java/com/org/cts/edusmart_backend/controller/AttendanceController.java
-
     @GetMapping("/course/{courseId}/view")
     public ResponseEntity<List<AttendanceDTO>> getAttendanceRecords(
             @PathVariable Long courseId,

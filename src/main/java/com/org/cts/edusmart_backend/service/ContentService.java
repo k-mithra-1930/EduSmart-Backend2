@@ -2,9 +2,6 @@ package com.org.cts.edusmart_backend.service;
 
 import com.org.cts.edusmart_backend.dto.ContentDTO;
 import com.org.cts.edusmart_backend.dto.ContentResponseDTO;
-import com.org.cts.edusmart_backend.entity.Content;
-import com.org.cts.edusmart_backend.entity.Course;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

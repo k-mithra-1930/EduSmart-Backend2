@@ -1,5 +1,6 @@
 package com.org.cts.edusmart_backend.controller;
 
+import com.org.cts.edusmart_backend.Security.JwtUtils;
 import com.org.cts.edusmart_backend.dto.LoginRequest;
 import com.org.cts.edusmart_backend.dto.UserRegistrationDTO;
 import com.org.cts.edusmart_backend.entity.User;
@@ -30,6 +31,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     // This MUST be exactly the same as in your JwtFilter
     private final String SECRET_KEY = "KundanMithraSaurabhSaiPranayaAyeshaVivek";
@@ -67,13 +71,7 @@ public class AuthController {
 
                     // 3. Generate JWT Token
                     // .signWith(Key, Algorithm) structure updated for jjwt 0.11.5
-                    String token = Jwts.builder()
-                            .setSubject(user.getEmail())
-                            .claim("role", user.getRole())
-                            .setIssuedAt(new Date())
-                            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24 hours
-                            .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
-                            .compact();
+                    String token = jwtUtils.generateToken(user.getEmail(), user.getRole());
 
                     // 4. Return user details and token
                     Map<String, Object> response = new HashMap<>();
