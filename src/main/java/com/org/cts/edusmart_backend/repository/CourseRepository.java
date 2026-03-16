@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @Query("SELECT c FROM Course c WHERE c.id NOT IN " +
-            "(SELECT e.course.id FROM Enrollment e WHERE e.student.id = :studentId)")
+    @Query("SELECT c FROM Course c WHERE c.status = com.org.cts.edusmart_backend.entity.CourseStatus.APPROVED " +
+            "AND c.id NOT IN (SELECT e.course.id FROM Enrollment e WHERE e.student.id = :studentId)")
     List<Course> findCoursesNotEnrolledByStudent(@Param("studentId") Long studentId);
 
     List<Course> findByStatus(CourseStatus status);
